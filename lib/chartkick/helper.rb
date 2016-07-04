@@ -11,6 +11,10 @@ module Chartkick
       chartkick_chart "PieChart", data_source, options
     end
 
+    def polar_area_chart(data_source, options = {})
+      chartkick_chart "PolarAreaChart", data_source, options
+    end
+
     def column_chart(data_source, options = {})
       chartkick_chart "ColumnChart", data_source, options
     end
