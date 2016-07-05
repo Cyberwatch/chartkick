@@ -1084,6 +1084,30 @@
           drawChart(chart, "pie", data, options);
         };
 
+        this.renderDoughnutChart = function (chart) {
+          var options = merge(baseOptions, chart.options.library || {});
+
+          var labels = [];
+          var values = [];
+          for (var i = 0; i < chart.data.length; i++) {
+            var point = chart.data[i];
+            labels.push(point[0]);
+            values.push(point[1]);
+          }
+
+          var data = {
+            labels: labels,
+            datasets: [
+              {
+                data: values,
+                backgroundColor: chart.options.colors || defaultColors
+              }
+            ]
+          };
+
+          drawChart(chart, "doughnut", data, options);
+        };
+
         this.renderPolarAreaChart = function (chart) {
           var options = merge(baseOptions, chart.options.library || {});
 
@@ -1290,6 +1314,11 @@
     renderChart("PieChart", chart);
   }
 
+  function processDoughnutData(chart) {
+    chart.data = processSimple(chart.data);
+    renderChart("DoughnutChart", chart);
+  }
+
   function processPolarAreaData(chart) {
     chart.data = processSimple(chart.data);
     renderChart("PolarAreaChart", chart);
@@ -1351,6 +1380,9 @@
     },
     PieChart: function (element, dataSource, opts) {
       setElement(this, element, dataSource, opts, processPieData);
+    },
+    DoughnutChart: function (element, dataSource, opts) {
+      setElement(this, element, dataSource, opts, processDoughnutData);
     },
     PolarAreaChart: function (element, dataSource, opts) {
       setElement(this, element, dataSource, opts, processPolarAreaData);
